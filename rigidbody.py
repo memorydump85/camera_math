@@ -38,6 +38,6 @@ def matrix_to_xyzrph(M):
     ty = M[1,3]
     tz = M[2,3]
     rx = np.arctan2(M[2,1], M[2,2])
-    ry = np.arctan2(-M[2,0], sqrt(M[0,0]*M[0,0] + M[1,0]*M[1,0]))
+    ry = np.arctan2(-M[2,0], np.sqrt(M[0,0]*M[0,0] + M[1,0]*M[1,0]))
     rz = np.arctan2(M[1,0], M[0,0])
     return tx, ty, tz, rx, ry, rz
