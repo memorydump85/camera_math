@@ -1,9 +1,31 @@
 import numpy as np
+from numpy import cos, sin
 
+
+
+def xyt_to_matrix(x, y, t):
+    rotz = lambda t: \
+        np.array([[ cos(t), -sin(t),  0. ],
+                  [ sin(t),  cos(t),  0. ],
+                  [     0.,      0.,  1. ]])
+
+    translate = lambda x, y: \
+        np.array([[ 1.,  0.,  x  ],
+                  [ 0.,  1.,  y  ],
+                  [ 0.,  0.,  1. ]])
+
+    return reduce(np.dot,
+        [ translate(x, y), rotz(t) ])
+
+
+def matrix_to_xyt(M):
+    tx = M[0,2]
+    ty = M[1,2]
+    rz = np.arctan2(M[1,0], M[0,0])
+    return tx, ty, rz
 
 
 def xyzrph_to_matrix(x, y, z, r, p, h):
-    from numpy import cos, sin
 
     rotx = lambda t: \
         np.array([[  1.,      0.,      0.,  0. ],
