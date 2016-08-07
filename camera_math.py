@@ -180,11 +180,15 @@ def get_extrinsics_from_homography(H, intrinsics):
     return E
 
 
-def intrinsics_to_matrix(fx, fy, cx, cy):
+def intrinsics_to_matrix_3x4(fx, fy, cx, cy):
     return np.array([[ fx,   0,  cx,  0. ],
                      [  0,  fy,  cy,  0. ],
                      [  0,   0,   1,  0. ]])
 
+def intrinsics_to_matrix_3x3(fx, fy, cx, cy):
+    return np.array([[ fx,   0,  cx ],
+                     [  0,  fy,  cy ],
+                     [  0,   0,   1.]])
 
 def matrix_to_intrinsics(K):
     return K[0,0], K[1,1], K[0,2], K[1,2]
