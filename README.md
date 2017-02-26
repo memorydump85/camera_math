@@ -1,3 +1,4 @@
-camera_math
-===========
-Python module for visual geometry calculations
+mathx
+=====
+
+Python module for math calculations involved in visual geometry.
