@@ -143,14 +143,14 @@ def estimate_intrinsics_noskew_assume_cxy(homographies, cxy):
                       [     0,     0,    1 ]])
 
 
-def get_extrinsics_from_homography(H, intrinsics):
+def get_extrinsics_from_homography(H, K):
     """
     Ideally `E = K.inv * H`, where `E` is the extrinsics and
     `K` is the camera intrinsics. However the resulting `E`
     does not conform to a rigid body transform. Hence, we
     correct `E` to conform to a rigid body transform.
     """
-    M = np.linalg.inv(intrinsics).dot(H)
+    M = np.linalg.inv(K).dot(H)
     M0 = M[:,0]
     M1 = M[:,1]
 
@@ -161,8 +161,8 @@ def get_extrinsics_from_homography(H, intrinsics):
 
     M /= scale
     # Recover sign of scale factor by noting that observations
-    # must be in front of the camera, that is: z < 0
-    if M[2,2] > 0: M *= -1
+    # must be in front of the camera, that is: z > 0
+    if M[2,2] < 0: M *= -1
 
     # Assemble extrinsics matrix from the columns of M
     E = np.eye(4)
