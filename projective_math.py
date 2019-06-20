@@ -117,7 +117,7 @@ class WeightedLocalHomography(object):
         U, s, Vt = np.linalg.svd(W.dot(A))
         H = Vt.T[:,-1].reshape((3,3))
 
-        return reduce(np.dot, [self._tgtXinv, H, self._srcX])
+        return (self._tgtXinv).dot(H).dot(self._srcX)
 
 
     def map(self, src_pt):
